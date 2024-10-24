@@ -1,0 +1,44 @@
+services:
+  
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    container_name: postgres_database
+    environment:
+      PGPORT: 5433
+      POSTGRES_USER: nvlaskalin
+      POSTGRES_PASSWORD: nikola
+      POSTGRES_DB: pydatabase
+
+  app:
+    image: python_app
+    container_name: python_application
+    expose:
+      - 8090
+    environment:
+      DATABASE_HOSTNAME: db 
+      DATABASE_NAME: pydatabase
+      DATABASE_PORT: 5433
+      DATABASE_USERNAME: nvlaskalin
+      DATABASE_PASSWORD: nikola
+      SECRET_KEY: j9dWpR53dxAM33ewDh4J4wFCMi52jY5BzXUlrFa5W/4
+      ALGORITHM: HS256
+    command: bash -c "alembic upgrade head && gunicorn app.main:app -b 0.0.0.0:8090 -k uvicorn.workers.UvicornWorker"
+    secrets:
+      - db_password
+      - db_user
+    depends_on:
+      - db
+  nginx:
+    image: nginx
+    restart: unless-stopped
+    container_name: nginx_python
+    ports:
+      - 8099:8099
+    volumes:
+      - ./nginx.conf:/etc/nginx/sites-available/nginx.conf:ro
+secrets:
+  db_password:
+    file: db_password.txt
+  db_user: 
+    file: db_user.txt
