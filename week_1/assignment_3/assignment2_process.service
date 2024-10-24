@@ -1,0 +1,15 @@
+[Unit]
+Description=Assignment 3 working server
+Requires=uvicorn.socket
+After=network.target
+
+[Service]
+User=pyuser
+ExecStart=/home/pyuser/app/my_environment/bin/gunicorn app.main:app -w 3 -k uvicorn.workers.UvicornWorker
+WorkingDirectory=/home/pyuser/app/my_environment/src
+Type=simple
+Restart=always
+
+[Install]
+WantedBy=default.target
+
