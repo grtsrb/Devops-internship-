@@ -50,7 +50,7 @@ jobs:
           DATABASE_HOSTNAME: localhost 
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
           DATABASE_PORT: 5432
-          DATABASE_USERNAME: ${{ secrets.DATABASE_USER }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ALGORITHM: HS256
