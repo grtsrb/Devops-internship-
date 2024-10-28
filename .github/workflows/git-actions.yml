@@ -59,6 +59,14 @@ jobs:
       - name: Test with pytest
         run: |
           pytest tests/
+        env: 
+          DATABASE_HOSTNAME: localhost 
+          DATABASE_NAME: pydatabase
+          DATABASE_PORT: 5432
+          DATABASE_USERNAME: nvlaskalin
+          DATABASE_PASSWORD: nikola
+          SECRET_KEY: j9dWpR53dxAM33ewDh4J4wFCMi52jY5BzXUlrFa5W/4
+          ALGORITHM: HS256
 
 
   docker:
