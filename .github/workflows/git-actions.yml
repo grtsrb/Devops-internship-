@@ -47,14 +47,13 @@ jobs:
       - name: Update database
         run: alembic upgrade head
         env: 
-          DATABASE_HOSTNAME: postgres-database 
+          DATABASE_HOSTNAME: localhost 
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
           DATABASE_PORT: 5432
           DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ALGORITHM: HS256
-          ACCESS_TOKEN_EXPIRE_MINUTES: 30
           
       - name: Test with pytest
         run: |
