@@ -27,6 +27,15 @@ jobs:
         ports:
           - 5432:5432
 
+    env: 
+      DATABASE_HOSTNAME: localhost 
+      DATABASE_NAME: pydatabase
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: nvlaskalin
+      DATABASE_PASSWORD: nikola
+      SECRET_KEY: j9dWpR53dxAM33ewDh4J4wFCMi52jY5BzXUlrFa5W/4
+      ALGORITHM: HS256
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,32 +51,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest
-          pip install -r requirements.txt
+          pip install -r requirements.txt pytest
 
       - name: Update database
         run: alembic upgrade head
-        env: 
-          DATABASE_HOSTNAME: localhost 
-          DATABASE_NAME: pydatabase
-          DATABASE_PORT: 5432
-          DATABASE_USERNAME: nvlaskalin
-          DATABASE_PASSWORD: nikola
-          SECRET_KEY: j9dWpR53dxAM33ewDh4J4wFCMi52jY5BzXUlrFa5W/4
-          ALGORITHM: HS256
           
       - name: Test with pytest
         run: |
           pytest tests/
-        env: 
-          DATABASE_HOSTNAME: localhost 
-          DATABASE_NAME: pydatabase
-          DATABASE_PORT: 5432
-          DATABASE_USERNAME: nvlaskalin
-          DATABASE_PASSWORD: nikola
-          SECRET_KEY: j9dWpR53dxAM33ewDh4J4wFCMi52jY5BzXUlrFa5W/4
-          ALGORITHM: HS256
-
 
   docker:
     runs-on: ubuntu-latest
