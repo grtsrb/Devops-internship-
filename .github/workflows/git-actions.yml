@@ -6,7 +6,7 @@ on:
     - git-actions
 
 jobs:
-  runner-job:
+  testing:
     runs-on: ubuntu-latest
 
     services:
@@ -62,8 +62,8 @@ jobs:
 
 
   docker:
-    runs-on: ubuntu-latest
-    needs: build
+    runs-on: testing 
+    needs: runner-job 
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
