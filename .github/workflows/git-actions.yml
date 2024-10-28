@@ -47,7 +47,7 @@ jobs:
       - name: Update database
         run: alembic upgrade head
         env: 
-          DATABASE_HOSTNAME: localhost 
+          DATABASE_HOSTNAME: postgres-database 
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
           DATABASE_PORT: 5432
           DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
