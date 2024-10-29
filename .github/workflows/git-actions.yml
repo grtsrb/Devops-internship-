@@ -70,10 +70,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Execute docker compose 
-      uses: appleboy/ssh-action@v0.1.10
+      uses: webfacwebfactory/ssh-agent@v0.9.9
       with:
-        key: ${{ secrets.PRIVATE_KEY }}
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        scripts: ./home/ubuntu/docker-app/script.sh
-
+        ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+    - name: SSH and execute script that updates our application
+      run: |
+        ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
+        ./home/ubuntu/docker-app/script.sh
