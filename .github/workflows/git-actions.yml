@@ -68,7 +68,6 @@ jobs:
           tags: grtalca/python-app:latest
   ssh:
     runs-on: ubuntu-latest
-    needs: docker
     steps:
     - name: Execute docker compose 
       uses: appleboy/ssh-action@v1.1.0
