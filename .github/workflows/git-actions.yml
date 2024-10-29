@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Execute docker compose 
-      uses: webfacwebfactory/ssh-agent@v0.9.9
+      uses: webfactory/ssh-agent@v0.9.9
       with:
         ssh-private-key: ${{ secrets.PRIVATE_KEY }}
     - name: SSH and execute script that updates our application
