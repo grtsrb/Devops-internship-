@@ -73,6 +73,8 @@ jobs:
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.PRIVATE_KEY }}" >> ~/.ssh/id_key 
-        chmod 600 ~/.ssh/id_key 
-        ssh -i ~/.ssh/id_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST}}  
-        ./home/ubuntu/docker-app/script.sh
+        chmod 600 ~/.ssh/id_key
+    - name: ssh to remote server
+      run: ssh -i ~/.ssh/id_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST}}  
+    - name: execute script
+      run: ./home/ubuntu/docker-app/script.sh
