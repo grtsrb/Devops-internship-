@@ -71,6 +71,6 @@ jobs:
     steps:
     - name: Copy ssh key to dir 
       run: |
-        echo ${{ secrets.PRIVATE_KEY }} >> ~/.ssh/id_key \ 
+        echo "${{ secrets.PRIVATE_KEY }}" >> ~/.ssh/id_key \ 
         ssh -i ~/.ssh/id_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST}} \ 
         ./home/ubuntu/docker-app/script.sh
