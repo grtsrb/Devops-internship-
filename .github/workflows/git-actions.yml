@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Execute docker compose 
-      uses: appleboy/ssh-action@v1.1.0
+      uses: appleboy/ssh-action@v0.1.10
       with:
         key: ${{ secrets.PRIVATE_KEY }}
         host: ${{ secrets.SSH_HOST }}
