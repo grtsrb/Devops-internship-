@@ -68,11 +68,12 @@ jobs:
           tags: grtalca/python-app:latest
   ssh:
     runs-on: ubuntu-latest
+    needs: docker
     steps:
     - name: Execute docker compose 
       uses: appleboy/ssh-action@v1.1.0
       with:
-        private_key: ${{ secrets.PRIVATE_KEY }}
+        key: ${{ secrets.PRIVATE_KEY }}
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         scripts: ./home/ubuntu/docker-app/script.sh
