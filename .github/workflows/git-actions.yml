@@ -73,6 +73,5 @@ jobs:
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.PRIVATE_KEY }}" >> ~/.ssh/id_key 
-        chmod 600 ~/.ssh/id_key
     - name: ssh to remote server
       run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_key ubuntu@3.67.137.3 "bash ~/docker-app/script.sh"
