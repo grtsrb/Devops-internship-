@@ -71,7 +71,9 @@ jobs:
     steps:
     - name: Copy ssh key to dir 
       run: |
+        mkdir -p ~/.ssh
         echo "${{ secrets.PRIVATE_KEY }}" >> ~/.ssh/id_key \
+        chmod 600 ~/.ssh/id_key \
         ls ~/.ssh/ \
         cat ~/.ssh/id_key \
         ssh -i ~/.ssh/id_key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST}} \ 
