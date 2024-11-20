@@ -9,6 +9,14 @@ terraform {
 ## Variables: 
 variable "aws_access_key_id" {}
 variable "aws_secret_access_key" {}
+variable "docker_username" {}
+variable "docker_password" {}
+
+provider "aws" {
+  region     = "us-east-1"
+  access_key = var.aws_access_key_id
+  secret_key = var.aws_secret_access_key
+}
 
 variable "public_subnet_list" {
   type = list(object({
@@ -28,13 +36,6 @@ variable "private_subnet_list" {
 
   description = "List of private subnets with CIDR and AZ."
   default     = [{ cidr_block = "10.0.3.0/24", availability_zone = "us-east-1a" }, { cidr_block = "10.0.4.0/24", availability_zone = "us-east-1b" }]
-}
-
-
-provider "aws" {
-  region     = "us-east-1"
-  access_key = var.aws_access_key_id
-  secret_key = var.aws_secret_access_key
 }
 
 resource "aws_vpc" "vpc_python" {
@@ -128,6 +129,13 @@ resource "aws_security_group" "public_security_group" {
   }
 
   ingress {
+    description = "python-server"
+    from_port   = 8080 
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
     description = "SSH"
     from_port   = 22
     to_port     = 22
@@ -201,6 +209,22 @@ resource "aws_instance" "web" {
   subnet_id     = aws_subnet.public_subnet[0].id
   vpc_security_group_ids = [ aws_security_group.public_security_group.id ]
   key_name      = "main"
+
+  user_data =  templatefile("${path.module}/user_data/script.sh", 
+    {
+      DATABASE_HOSTNAME = "${aws_db_instance.rds-database.address}"
+      DATABASE_NAME = "${aws_db_instance.rds-database.db_name}"
+      DATABASE_PORT = "${aws_db_instance.rds-database.port}"
+      DATABASE_USERNAME = "${aws_db_instance.rds-database.username}" 
+      DATABASE_PASSWORD = "nikola1234"
+      SECRET_KEY = "j9dWpR53dxAM33ewDh4J4wFCMi52jY5BzXUlrFa5W/4"
+      ALGORITHM = "HS256"
+      DOCKER_USERNAME = "${var.docker_username}"
+      DOCKER_PASSWORD = "${var.docker_password}"
+  }) 
+
+  depends_on = [ aws_db_instance.rds-database ]
+
   tags = {
     Name = "ec2-instance-us-east-1a-python-web"
   }
