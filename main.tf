@@ -50,8 +50,8 @@ module "ec2_instance" {
   db_name         = module.rds_instance.db_name
   db_port         = module.rds_instance.db_port
   db_username     = module.rds_instance.db_username
-  docker_username = var.docker_username
-  docker_password = var.docker_password
+  docker_username = var.DOCKER_USERNAME
+  docker_password = var.DOCKER_PASSWORD
 
   region  = var.region
   env     = var.env
