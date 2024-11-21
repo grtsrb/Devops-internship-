@@ -5,7 +5,7 @@ on:
             - terraform-env
 env:
     TF_CLOUD_ORGANIZATION: "Vlah"
-    TF_API_TOKE: "${{ secrets.TF_API_TOKEN }}"
+    TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
     TF_WORKSPACE: "python-web-github-actions"
     CONFIG_DIRECTORY: "./"
 jobs:
