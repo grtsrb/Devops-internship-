@@ -33,7 +33,7 @@ module "rds_instance" {
   source = "./modules/rds"
 
   priv_subnet_id = module.subnet.priv_subnet_id[*]
-  priv_sg_id = module.security_groups.priv_sg_id
+  priv_sg_id     = module.security_groups.priv_sg_id
   region         = var.region
   env            = var.env
   project        = var.project
