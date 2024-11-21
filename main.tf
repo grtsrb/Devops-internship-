@@ -130,7 +130,7 @@ resource "aws_security_group" "public_security_group" {
 
   ingress {
     description = "python-server"
-    from_port   = 8080 
+    from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
@@ -167,11 +167,11 @@ resource "aws_security_group" "private_security_group" {
   vpc_id = aws_vpc.vpc_python.id
 
   ingress {
-    description = "PostgresSQL"
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    security_groups = [ aws_security_group.public_security_group.id ]
+    description     = "PostgresSQL"
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.public_security_group.id]
   }
 
   egress {
@@ -204,26 +204,26 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
-  subnet_id     = aws_subnet.public_subnet[0].id
-  vpc_security_group_ids = [ aws_security_group.public_security_group.id ]
-  key_name      = "main"
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t2.micro"
+  subnet_id              = aws_subnet.public_subnet[0].id
+  vpc_security_group_ids = [aws_security_group.public_security_group.id]
+  key_name               = "main"
 
-  user_data =  templatefile("${path.module}/user_data/script.sh", 
+  user_data = templatefile("${path.module}/user_data/script.sh",
     {
       DATABASE_HOSTNAME = "${aws_db_instance.rds-database.address}"
-      DATABASE_NAME = "${aws_db_instance.rds-database.db_name}"
-      DATABASE_PORT = "${aws_db_instance.rds-database.port}"
-      DATABASE_USERNAME = "${aws_db_instance.rds-database.username}" 
+      DATABASE_NAME     = "${aws_db_instance.rds-database.db_name}"
+      DATABASE_PORT     = "${aws_db_instance.rds-database.port}"
+      DATABASE_USERNAME = "${aws_db_instance.rds-database.username}"
       DATABASE_PASSWORD = "nikola1234"
-      SECRET_KEY = "j9dWpR53dxAM33ewDh4J4wFCMi52jY5BzXUlrFa5W/4"
-      ALGORITHM = "HS256"
-      DOCKER_USERNAME = "${var.docker_username}"
-      DOCKER_PASSWORD = "${var.docker_password}"
-  }) 
+      SECRET_KEY        = "j9dWpR53dxAM33ewDh4J4wFCMi52jY5BzXUlrFa5W/4"
+      ALGORITHM         = "HS256"
+      DOCKER_USERNAME   = "${var.docker_username}"
+      DOCKER_PASSWORD   = "${var.docker_password}"
+  })
 
-  depends_on = [ aws_db_instance.rds-database ]
+  depends_on = [aws_db_instance.rds-database]
 
   tags = {
     Name = "ec2-instance-us-east-1a-python-web"
@@ -231,19 +231,19 @@ resource "aws_instance" "web" {
 }
 
 resource "aws_eip" "ec2-elastic-ip" {
-  instance = aws_instance.web.id
-  domain   = "vpc"
-  depends_on = [ aws_internet_gateway.app_igw ]
+  instance   = aws_instance.web.id
+  domain     = "vpc"
+  depends_on = [aws_internet_gateway.app_igw]
 }
 
 resource "aws_db_instance" "rds-database" {
-  allocated_storage    = 10
-  db_subnet_group_name = aws_db_subnet_group.rds_subnet_group.name
-  db_name              = "postgres"
-  engine               = "postgres"
-  instance_class       = "db.t3.micro"
-  username             = "nikola"
-  password             = "nikola1234"
-  vpc_security_group_ids = [ aws_security_group.private_security_group.id ]
-  skip_final_snapshot = true
+  allocated_storage      = 10
+  db_subnet_group_name   = aws_db_subnet_group.rds_subnet_group.name
+  db_name                = "postgres"
+  engine                 = "postgres"
+  instance_class         = "db.t3.micro"
+  username               = "nikola"
+  password               = "nikola1234"
+  vpc_security_group_ids = [aws_security_group.private_security_group.id]
+  skip_final_snapshot    = true
 }
