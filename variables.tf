@@ -15,3 +15,14 @@ variable "AWS_SECRET_ACCESS_KEY" {}
 variable "DOCKER_USERNAME" {}
 variable "DOCKER_PASSWORD" {}
 
+variable "DATABASE_NAME" {
+  
+}
+
+variable "DATABASE_USERNAME" {
+  
+}
+
+variable "DATABASE_PASSWORD" {
+  
+}
