@@ -22,11 +22,6 @@ variable "priv_sg_id" {
 
 }
 
-variable "db_name" {
-  description = "Name of database"
-  type = string
-  default = "postgres"
-}
 variable "engine" {
   description = "Specify db's engine"
   type = string
@@ -36,9 +31,4 @@ variable "instance_class" {
   description = "Specify db's instance class. Default: db.t3.micro"
   type = string
   default = "db.t3.micro"
-}
-variable "db_username" {
-  description = "Specify db's username"
-  type = string
-  default = "nikola"
 }

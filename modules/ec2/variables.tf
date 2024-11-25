@@ -33,28 +33,3 @@ variable "rds_instance" {
 variable "db_hostname" {
   
 }
-
-variable "db_name" {
-  
-}
-
-variable "db_port" {
-  
-}
-
-variable "DB_USERNAME" {
-  
-}
-
-variable "DB_PASSWORD" {
-  
-}
-
-variable "docker_username" {
-  
-}
-
-variable "docker_password" {
-  
-}
-
