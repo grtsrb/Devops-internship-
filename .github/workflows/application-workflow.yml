@@ -80,6 +80,7 @@ jobs:
                  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_key ubuntu@${{ vars.EC2_ADDRESS }}
                  docker login -u ${{ vars.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
                  docker pull grtalca/python-app
+                 cd /home/$USER/docker
                  docker compose down
                  docker rm python-application
                  docker compose up -d
