@@ -37,6 +37,10 @@ module "rds_instance" {
   region         = var.region
   env            = var.env
   project        = var.project
+
+  DATABASE_NAME     = var.DATABASE_NAME
+  DATABASE_USERNAME = var.DATABASE_USERNAME
+  DATABASE_PASSWORD = var.DATABASE_PASSWORD
 }
 
 module "ec2_instance" {
@@ -51,4 +55,9 @@ module "ec2_instance" {
   env     = var.env
   project = var.project
 
+  DATABASE_NAME     = var.DATABASE_NAME
+  DATABASE_USERNAME = var.DATABASE_USERNAME
+  DATABASE_PASSWORD = var.DATABASE_PASSWORD
+  DOCKER_USERNAME = var.DOCKER_USERNAME
+  DOCKER_PASSWORD = var.DOCKER_PASSWORD
 }
