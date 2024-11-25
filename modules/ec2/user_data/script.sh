@@ -32,7 +32,7 @@ cd /home/$USER/docker
 cat <<EOF > docker-compose.yaml
 services:
   python-application:
-    image: python_app
+    image: python-app
     container_name: python-application
     environment:
       DATABASE_HOSTNAME: ${DATABASE_HOSTNAME}
