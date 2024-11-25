@@ -22,6 +22,23 @@ variable "priv_sg_id" {
 
 }
 
+variable "DATABASE_NAME" {
+  description = "The name of the database"
+  type        = string
+}
+
+variable "DATABASE_USERNAME" {
+  description = "The username for the database"
+  type        = string
+}
+
+variable "DATABASE_PASSWORD" {
+  description = "The password for the database"
+  type        = string
+  sensitive   = true
+}
+
+
 variable "engine" {
   description = "Specify db's engine"
   type = string
