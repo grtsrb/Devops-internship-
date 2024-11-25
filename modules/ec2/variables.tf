@@ -50,6 +50,16 @@ variable "DATABASE_PASSWORD" {
   sensitive   = true
 }
 
+variable "DATABASE_PORT" {
+  description = "Port for db instance"
+  type = string
+}
+
+variable "DATABASE_SECRET_KEY" {
+  description = "Secret key for python app"
+  type = string
+}
+
 variable "DOCKER_USERNAME" {
   description = "Username for docker account"
   type = string

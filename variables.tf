@@ -26,3 +26,11 @@ variable "DATABASE_USERNAME" {
 variable "DATABASE_PASSWORD" {
   
 }
+
+variable "DATABASE_SECRET_KEY" {
+  
+}
+
+variable "DATABASE_PORT" {
+  
+}
