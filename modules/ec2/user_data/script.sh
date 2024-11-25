@@ -43,6 +43,8 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       SECRET_KEY: ${SECRET_KEY}
       ALGORITHM: ${ALGORITHM}
+    ports:
+      - 8080:8080
     command: bash -c "alembic upgrade head && gunicorn app.main:app -w 3 -b 0.0.0.0:8080 -k uvicorn.workers.UvicornWorker"
 EOF
 
