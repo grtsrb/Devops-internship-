@@ -38,7 +38,11 @@ variable "DATABASE_PASSWORD" {
   sensitive   = true
 }
 
-
+variable "DATABASE_PORT" {
+  description = "Port for the database"
+  type = string
+  
+}
 variable "engine" {
   description = "Specify db's engine"
   type = string

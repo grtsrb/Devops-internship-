@@ -41,6 +41,7 @@ module "rds_instance" {
   DATABASE_NAME     = var.DATABASE_NAME
   DATABASE_USERNAME = var.DATABASE_USERNAME
   DATABASE_PASSWORD = var.DATABASE_PASSWORD
+  DATABASE_PORT = var.DATABASE_PORT
 }
 
 module "ec2_instance" {
