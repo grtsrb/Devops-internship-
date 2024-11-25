@@ -26,8 +26,6 @@ docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
 
 docker pull grtalca/python-app
 
-IP_ADDR=$(curl https://ifconfig.me/)
-
 mkdir /home/$USER/docker
 cd /home/$USER/docker
 
