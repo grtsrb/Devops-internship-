@@ -47,11 +47,6 @@ module "ec2_instance" {
   igw_id          = module.vpc.igw_id
   rds_instance    = module.rds_instance.rds_instance
   db_hostname     = module.rds_instance.db_hostname
-  db_name         = module.rds_instance.db_name
-  db_port         = module.rds_instance.db_port
-  db_username     = module.rds_instance.db_username
-  docker_username = var.DOCKER_USERNAME
-  docker_password = var.DOCKER_PASSWORD
 
   region  = var.region
   env     = var.env

@@ -42,7 +42,11 @@ variable "db_port" {
   
 }
 
-variable "db_username" {
+variable "DB_USERNAME" {
+  
+}
+
+variable "DB_PASSWORD" {
   
 }
 

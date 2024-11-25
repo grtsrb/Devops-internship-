@@ -25,14 +25,14 @@ resource "aws_instance" "web" {
   user_data = templatefile("${path.module}/user_data/script.sh",
     {
       DATABASE_HOSTNAME = "${var.db_hostname}"
-      DATABASE_NAME     = "${var.db_name}"
-      DATABASE_PORT     = "${var.db_port}"
-      DATABASE_USERNAME = "${var.db_username}"
-      DATABASE_PASSWORD = "nikola1234"
-      SECRET_KEY        = "j9dWpR53dxAM33ewDh4J4wFCMi52jY5BzXUlrFa5W/4"
+      DATABASE_NAME     = "${var.DATABASE_NAME}"
+      DATABASE_PORT     = "${var.DATABASE_PORT}"
+      DATABASE_USERNAME = "${var.DATABASE_USERNAME}"
+      DATABASE_PASSWORD = "${var.DATABASE_PASSWORD}" 
+      SECRET_KEY        = "${var.DATABASE_SECRET_KEY}"
       ALGORITHM         = "HS256"
-      DOCKER_USERNAME   = "${var.docker_username}"
-      DOCKER_PASSWORD   = "${var.docker_password}"
+      DOCKER_USERNAME   = "${var.DOCKER_USERNAME}"
+      DOCKER_PASSWORD   = "${var.DOCKER_PASSWORD}"
   })
 
   depends_on = [var.rds_instance]
