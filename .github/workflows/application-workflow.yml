@@ -78,7 +78,8 @@ jobs:
             - name: ssh to remote server and run script
               run: |
                  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_key ubuntu@${{ vars.EC2_ADDRESS }}
-                 sudo docker pull grtalca/python-app
-                 sudo docker compose down
-                 sudo docker rm python-application
-                 sudo docker compose up -d
+                 docker login -u ${{ vars.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+                 docker pull grtalca/python-app
+                 docker compose down
+                 docker rm python-application
+                 docker compose up -d
