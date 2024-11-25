@@ -48,7 +48,7 @@ jobs:
               run: pytest tests/
     docker:
         runs-on: ubuntu-latest
-        # needs: testing
+        needs: testing
         steps:
             - name: Checkout branch
               uses: actions/checkout@v4
@@ -67,7 +67,7 @@ jobs:
                 tags: grtalca/python-app:latest
     ssh:
         runs-on: ubuntu-latest
-        # needs: docker
+        needs: docker
         steps:
             - name: Copy ssh key to dir
               run: |
