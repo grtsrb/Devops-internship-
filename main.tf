@@ -47,7 +47,6 @@ module "ec2_instance" {
   igw_id          = module.vpc.igw_id
   rds_instance    = module.rds_instance.rds_instance
   db_hostname     = module.rds_instance.db_hostname
-
   region  = var.region
   env     = var.env
   project = var.project
