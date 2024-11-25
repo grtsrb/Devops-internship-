@@ -15,6 +15,7 @@ resource "aws_db_instance" "rds-database" {
   instance_class         = "${var.instance_class}"
   username               = "${var.DATABASE_USERNAME}"
   password               = "${var.DATABASE_PASSWORD}"
+  port = "${var.DATABASE_PORT}"
   vpc_security_group_ids = [var.priv_sg_id]
   skip_final_snapshot    = true
 
