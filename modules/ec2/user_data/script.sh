@@ -18,7 +18,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 sudo groupadd docker
 sudo usermod -aG docker $USER 
 
-sudo su - $USER
+newgrp docker
 
 sudo systemctl restart docker
 
@@ -30,10 +30,9 @@ mkdir /home/$USER/docker
 cd /home/$USER/docker
 
 cat <<EOF > docker-compose.yaml
-version: "3.9"
 services:
   python-application:
-    image: grtalca/python_app
+    image: python_app
     container_name: python-application
     environment:
       DATABASE_HOSTNAME: ${DATABASE_HOSTNAME}
