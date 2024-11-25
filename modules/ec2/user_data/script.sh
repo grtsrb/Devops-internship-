@@ -24,7 +24,7 @@ sudo systemctl restart docker
 
 docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
 
-docker pull grtalca/python-app
+docker pull grtalca/python-app 
 
 mkdir /home/$USER/docker
 cd /home/$USER/docker
@@ -32,7 +32,7 @@ cd /home/$USER/docker
 cat <<EOF > docker-compose.yaml
 services:
   python-application:
-    image: python-app
+    image: grtalca/python-app 
     container_name: python-application
     environment:
       DATABASE_HOSTNAME: ${DATABASE_HOSTNAME}
