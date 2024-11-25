@@ -1,0 +1,14 @@
+services:
+  
+  python-application:
+    image: python_app
+    container_name: python-application
+    environment:
+      DATABASE_HOSTNAME: ${DATABASE_HOSTNAME} 
+      DATABASE_NAME: ${DATABASE_NAME} 
+      DATABASE_PORT: ${DATABASE_PORT} 
+      DATABASE_USERNAME: ${DATABASE_USERNAME} 
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD} 
+      SECRET_KEY: ${DB_SECRET_KEY} 
+      ALGORITHM: ${DB_ALGORITHM}
+    command: bash -c "alembic upgrade head && gunicorn app.main:app -w 3 -b 0.0.0.0:8080 -k uvicorn.workers.UvicornWorker"
