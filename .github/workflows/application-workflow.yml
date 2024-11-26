@@ -65,9 +65,32 @@ jobs:
               with: 
                 push: true
                 tags: grtalca/python-app:latest
+    aws:
+      runs-on: ubuntu-latest
+      needs: docker
+      steps:
+        - name: Configure AWS Credentials
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: us-east-1
+        - name: Get instance IP 
+          run: |
+            PUBLIC_IP=$(aws ec2 describe-instances \
+                        --filters "Name=tag:Name,Values=ec2-instance-us-east-1a-prod-python-web" \
+                        "Name=instance-state-name,Values=running" \
+                        --query "Reservations[0].Instances[0].PublicIpAddress" \
+                        --output text)
+            if [ -z "$PUBLIC_IP"]; then
+              echo "No running instance found or instance does not have a public IP."
+              exit 1
+            fi
+
+            echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
     ssh:
         runs-on: ubuntu-latest
-        needs: docker
+        needs: aws
         steps:
             - name: Copy ssh key to dir
               run: |
@@ -77,7 +100,12 @@ jobs:
               shell: bash
             - name: ssh to remote server and run script
               run: |
-                 ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_key ubuntu@${{ vars.EC2_ADDRESS }} << 'EOF'
+                 if [ -z "${{ env.PUBLIC_IP }}" ]; then
+                   echo "Public IP not found. Exiting."
+                   exit 1
+                 fi
+
+                 ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_key ubuntu@${{ env.PUBLIC_IP }} << 'EOF'
                     sudo docker login -u ${{ vars.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
                     sudo docker pull grtalca/python-app
                     cd /home/docker
