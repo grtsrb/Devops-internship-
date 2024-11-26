@@ -82,7 +82,7 @@ jobs:
                         "Name=instance-state-name,Values=running" \
                         --query "Reservations[0].Instances[0].PublicIpAddress" \
                         --output text)
-            if [ -z "$PUBLIC_IP"]; then
+            if [ -z "$PUBLIC_IP" ]; then
               echo "No running instance found or instance does not have a public IP."
               exit 1
             fi
