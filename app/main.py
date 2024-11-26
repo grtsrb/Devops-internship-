@@ -26,4 +26,4 @@ app.include_router(votes.router)
 
 @app.get("/")
 def root():
-    return {"Hello": "do you work?"}
+    return {"Hello": "do you work with aws cli?"}
